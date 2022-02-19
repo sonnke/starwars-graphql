@@ -1,0 +1,24 @@
+{
+  "name": "starwars-graphql",
+  "version": "1.0.0",
+  "description": "Node GraphQL wrapper for SWAPI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://sonnke: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@github.com/sonnke/starwars-graphql.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sonnke/starwars-graphql/issues"
+  },
+  "homepage": "https://github.com/sonnke/starwars-graphql#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0"
+  }
+}
