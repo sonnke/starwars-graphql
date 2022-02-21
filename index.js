@@ -4,7 +4,7 @@ const express = require("express");
 const http = require("http");
 const { schema } = require("./schema/people.schema");
 const { resolvers } = require("./resolver/people.resolvers");
-
+const port = process.env.PORT || 4000;
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
 
@@ -20,8 +20,10 @@ async function startApolloServer(typeDefs, resolvers) {
 
   server.applyMiddleware({ app });
 
-  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
+  console.log(
+    `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
+  );
 }
 
 startApolloServer(schema, resolvers);
