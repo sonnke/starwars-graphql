@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Node GraphQL wrapper for SWAPI",
   "main": "index.js",
+  "engines": {
+    "node": "16.x",
+    "npm": "6.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./index.js"
