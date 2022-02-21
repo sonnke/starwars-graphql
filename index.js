@@ -1,22 +1,27 @@
+const { ApolloServer } = require("apollo-server-express");
+const { ApolloServerPluginDrainHttpServer } = require("apollo-server-core");
 const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-const { buildSchema } = require("graphql");
+const http = require("http");
+const { schema } = require("./schema/people.schema");
+const { resolvers } = require("./resolver/people.resolvers");
 
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
+async function startApolloServer(typeDefs, resolvers) {
+  const app = express();
 
-const root = { hello: () => "Hello world!" };
+  const httpServer = http.createServer(app);
 
-const app = express();
-app.use(
-  "/api",
-  graphqlHTTP({
-    schema: schema,
-    rootValue: root,
-    graphiql: true,
-  })
-);
-app.listen(4000, () => console.log("Now browse to http://localhost:4000/api"));
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  });
+
+  await server.start();
+
+  server.applyMiddleware({ app });
+
+  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+}
+
+startApolloServer(schema, resolvers);
